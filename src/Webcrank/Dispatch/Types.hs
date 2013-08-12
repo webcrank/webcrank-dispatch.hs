@@ -1,7 +1,7 @@
 module Webcrank.Dispatch.Types 
   ( PathSpec(..)
   , PathParam(..)
-  , HasPathInfo(..)
+  , HasRequestPath(..)
   ) where
 
 import           Data.Text       (Text)
@@ -16,8 +16,6 @@ class PathSpec repr where
   splat :: repr a ([Text] -> a)
 infixl 7 </>
 
-class HasPathInfo a where
-  path :: Functor f => ([Text] -> f [Text]) -> a -> f a
-  dispPath :: Functor f => ([Text] -> f [Text]) -> a -> f a
-
+class HasRequestPath a where
+  rqPath :: a -> [Text]
 

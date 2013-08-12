@@ -9,12 +9,10 @@ import           Webcrank.Dispatch
 
 data Req = Req 
   { path :: [Text]
-  , dispPath :: [Text]
   } deriving (Eq, Show)
 
-instance HasPathInfo Req where
-  path f (Req p dp) = fmap (`Req` dp) (f p)
-  dispPath f (Req p dp) = fmap (Req p) (f dp)
+instance HasRequestPath Req where
+  rqPath (Req p) = p
 
 type Res = [[Text]]
 
@@ -53,16 +51,16 @@ disp = dispatcher
   , packageVerDoc --> (\_ _ _ -> Just [])
   ] 
 
-ex1a = disp (Req ["packages"] [])
-ex1b = disp (Req ["unknown"] [])
+ex1a = disp (Req ["packages"]) -- Just (Just [...])
+ex1b = disp (Req ["unknown"]) -- Nothing
 
-ex2a = disp (Req ["packages", "webcrank-dispatch"] [])
-ex2b = disp (Req ["packages", "nothing"] [])
+ex2a = disp (Req ["packages", "webcrank-dispatch"]) -- Just (Just [...])
+ex2b = disp (Req ["packages", "nothing"]) -- Just Nothing
 
-ex3a = disp (Req ["packages", "webcrank-dispatch", "2"] [])
-ex3b = disp (Req ["packages", "webcrank-dispatch", "5"] [])
-ex3c = disp (Req ["packages", "webcrank-dispatch", "not-an-int"] [])
+ex3a = disp (Req ["packages", "webcrank-dispatch", "2"]) -- Just (Just [["packages","webcrank-dispatch","2","doc"]])
+ex3b = disp (Req ["packages", "webcrank-dispatch", "5"])  -- Just Nothing
+ex3c = disp (Req ["packages", "webcrank-dispatch", "not-an-int"]) -- Nothing
 
-ex4a = disp (Req ["packages", "webcrank-dispatch", "2", "doc"] [])
-ex4b = disp (Req ["packages", "webcrank-dispatch", "2", "unknown"] [])
+ex4a = disp (Req ["packages", "webcrank-dispatch", "2", "doc"]) -- Just (Just [])
+ex4b = disp (Req ["packages", "webcrank-dispatch", "2", "unknown"]) -- Nothing
 
