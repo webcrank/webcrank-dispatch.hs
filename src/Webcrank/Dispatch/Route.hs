@@ -1,27 +1,34 @@
 {-# LANGUAGE Rank2Types #-}
+{-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE TupleSections #-}
 module Webcrank.Dispatch.Route
-  ( (-->)
+  ( PathRoute
+  , (~>)
   ) where
 
-import           Data.Text                           (Text)
-import           Webcrank.Dispatch.Types
+import Data.Text (Text)
+import Webcrank.Dispatch.Types
 
-newtype PathRoute r a b = PathRoute ((r, [Text]) -> b -> Maybe (a, r, [Text]))
+newtype PathRoute r a b =
+  PathRoute { runRoute :: [Text] -> b -> Maybe (a, [Text]) }
 
-instance HasRequestPath r => PathSpec (PathRoute r) where
-  lit str = PathRoute check where
-    check (r, h:t) x = if h == str then Just (x, r, t) else Nothing
-    check _ _ = Nothing
-  param (PathParam _ dec) = PathRoute dec' where 
-    dec' (r, h:t) f = dec h >>= (\a -> Just (f a, r, t))
-    dec' _ _ = Nothing
-  (PathRoute deca) </> (PathRoute decb) = PathRoute dec where 
-    dec inp f = deca inp f >>= (\(f', r', inp') -> decb (r', inp') f') 
-  splat = PathRoute $ \(r, xs) f -> Just (f xs, r, [])
+instance PathSpec (PathRoute r) where
+  lit str = PathRoute $ \case
+    h : t | h == str -> Just . (, t)
+    _               -> const Nothing
 
-(-->) :: HasRequestPath req => PathRoute req (req -> m res) b -> b -> req -> Maybe (m res)
-(-->) (PathRoute rt) f rq = rt inp f >>= run where
-  run (f', rq', inp') = if null inp' then Just (f' rq') else Nothing
-  inp = (rq, rqPath rq)
-infixl 5 -->
+  param (PathParam _ dec) = PathRoute $ \case
+    h : t -> \f -> dec h >>= (\a -> Just (f a, t))
+    _          -> const Nothing
+
+  a </> b = PathRoute $ \ina f ->
+    runRoute a ina f >>= (\(inb, g) -> runRoute b g inb)
+
+  splat = PathRoute $ \xs f -> Just (f xs, [])
+
+(~>) :: HasRequestPath req => PathRoute req (req -> m res) b -> b -> req -> Maybe (m res)
+(~>) rt f rq = runRoute rt (rqPath rq) f >>= \case
+  (g, rest) | null rest -> Just (g rq)
+  _ -> Nothing
+infixl 5 ~>
 

@@ -1,10 +1,6 @@
-module Webcrank.Dispatch.Types 
-  ( PathSpec(..)
-  , PathParam(..)
-  , HasRequestPath(..)
-  ) where
+module Webcrank.Dispatch.Types where
 
-import           Data.Text       (Text)
+import Data.Text (Text)
 
 -- |Encoding/decoding pair
 data PathParam a = PathParam (a -> Text) (Text -> Maybe a)
