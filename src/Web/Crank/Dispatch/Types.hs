@@ -1,4 +1,4 @@
-module Webcrank.Dispatch.Types where
+module Web.Crank.Dispatch.Types where
 
 import Data.Text (Text)
 

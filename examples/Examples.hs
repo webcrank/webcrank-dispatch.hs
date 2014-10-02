@@ -5,7 +5,7 @@ module Examples where
 import Control.Monad.Identity
 import Data.Functor                        ((<$>))
 import Data.Text                           (Text)
-import Webcrank.Dispatch
+import Web.Crank.Dispatch
 
 data Req = Req
   { path :: [Text]

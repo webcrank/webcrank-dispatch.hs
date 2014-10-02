@@ -2,8 +2,8 @@
 import Test.DocTest
 main = doctest
   [ "-isrc"
-  , "src/Webcrank/Dispatch.hs"
-  , "src/Webcrank/Dispatch/Path.hs"
-  , "src/Webcrank/Dispatch/Route.hs"
-  , "src/Webcrank/Dispatch/Types.hs"
+  , "src/Web/Crank/Dispatch.hs"
+  , "src/Web/Crank/Dispatch/Path.hs"
+  , "src/Web/Crank/Dispatch/Route.hs"
+  , "src/Web/Crank/Dispatch/Types.hs"
   ]

@@ -1,4 +1,4 @@
-module Webcrank.Dispatch.Path
+module Web.Crank.Dispatch.Path
   (
   -- * Path parameters
     intParam
@@ -20,7 +20,7 @@ import qualified Data.Text.Lazy as LT
 import qualified Data.Text.Lazy.Builder as LT
 import qualified Data.Text.Lazy.Builder.Int as LT
 
-import Webcrank.Dispatch.Types
+import Web.Crank.Dispatch.Types
 
 -- $setup
 -- >>> :set -XOverloadedStrings

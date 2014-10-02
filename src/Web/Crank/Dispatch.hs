@@ -1,5 +1,5 @@
 -- |Type-safe dispatching of requests for Webcrank, based on <http://okmij.org/ftp/typed-formatting/FPrintScan.html#DSL-FIn>
-module Webcrank.Dispatch
+module Web.Crank.Dispatch
   ( dispatcher
   , toPath
   , fromPath
@@ -18,9 +18,9 @@ module Webcrank.Dispatch
 import Control.Monad.Trans.Reader  (ReaderT(..))
 import Control.Monad               (mplus)
 import Data.Foldable               (foldl')
-import Webcrank.Dispatch.Path
-import Webcrank.Dispatch.Route
-import Webcrank.Dispatch.Types
+import Web.Crank.Dispatch.Path
+import Web.Crank.Dispatch.Route
+import Web.Crank.Dispatch.Types
 
 dispatcher :: [req -> Maybe (m res)] -> req -> Maybe (m res)
 dispatcher = runReaderT . r where

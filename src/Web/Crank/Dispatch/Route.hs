@@ -1,13 +1,13 @@
 {-# LANGUAGE Rank2Types #-}
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE TupleSections #-}
-module Webcrank.Dispatch.Route
+module Web.Crank.Dispatch.Route
   ( PathRoute
   , (~>)
   ) where
 
 import Data.Text (Text)
-import Webcrank.Dispatch.Types
+import Web.Crank.Dispatch.Types
 
 newtype PathRoute r a b =
   PathRoute { runRoute :: [Text] -> b -> Maybe (a, [Text]) }

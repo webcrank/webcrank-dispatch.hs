@@ -6,10 +6,10 @@ cabal-version: >= 1.8
 library
   hs-source-dirs:      src
 
-  exposed-modules:     Webcrank.Dispatch
-                     , Webcrank.Dispatch.Path
-                     , Webcrank.Dispatch.Route
-                     , Webcrank.Dispatch.Types
+  exposed-modules:     Web.Crank.Dispatch
+                     , Web.Crank.Dispatch.Path
+                     , Web.Crank.Dispatch.Route
+                     , Web.Crank.Dispatch.Types
 
   build-depends:       base                >= 3
                      , bytestring          >= 0.10
