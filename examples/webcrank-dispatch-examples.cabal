@@ -11,7 +11,8 @@ cabal-version:       >=1.10
 executable examples
   build-depends:       base >=4.7
                      , mtl
+                     , reroute
                      , text
                      , webcrank-dispatch
   default-language:    Haskell98
-  main-is:             Examples.hs
+  main-is:             Main.hs
