@@ -1,3 +1,5 @@
+[Travis](https://travis-ci.org/webcrank/webcrank-dispatch.hs) [![Build Status](https://travis-ci.org/webcrank/webcrank-dispatch.hs.png)](https://travis-ci.org/webcrank/webcrank-dispatch.hs)
+
 A type-safe request dispatcher and path renderer.  Based on [reroute](https://hackage.haskell.org/package/reroute).
 
 ```
