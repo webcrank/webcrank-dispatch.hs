@@ -39,7 +39,7 @@ dispatcher = dispatch $ mconcat
   ]
 ```
 
-then dispatch on a request path
+then dispatch on request paths
 
 ```
 res1 = dispatcher [""] 
