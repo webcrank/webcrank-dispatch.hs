@@ -3,10 +3,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TypeOperators #-}
 
-
 module Main where
 
-import Data.HVect
 import Data.Monoid
 import Data.Text (Text)
 
@@ -50,10 +48,10 @@ dispatcher = dispatch $ mconcat
 main :: IO ()
 main = do
   -- route rendering
-  print $ renderRoute' packages HNil -- ["packages"]
-  print $ renderRoute' package ("webcrank-dispatch" .*. HNil) -- ["packages", "webcrank-dispatch"]
-  print $ renderRoute' packageVer ("webcrank-dispatch" .*. 1 .*. HNil) -- ["packages", "webcrank-dispatch", "1"]
-  print $ renderRoute' packageVerDoc ("webcrank-dispatch" .*. 1 .*. HNil) -- ["packages", "webcrank-dispatch", "1", "doc"]
+  print $ renderPath packages params -- ["packages"]
+  print $ renderPath package $ params "webcrank-dispatch" -- ["packages", "webcrank-dispatch"]
+  print $ renderPath packageVer $ params "webcrank-dispatch" 1 -- ["packages", "webcrank-dispatch", "1"]
+  print $ renderPath packageVerDoc $ params "webcrank-dispatch" 1 -- ["packages", "webcrank-dispatch", "1", "doc"]
 
   -- dispatching
   print $ dispatcher ["packages"] -- Just "..."

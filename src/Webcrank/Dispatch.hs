@@ -1,8 +1,12 @@
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Webcrank.Dispatch
   ( Dispatcher
@@ -11,9 +15,8 @@ module Webcrank.Dispatch
   , (==>)
   , (</>)
   , var
-  , renderRoute
-  , renderRoute'
-  , (.*.)
+  , renderPath
+  , params
   , HVect(..)
   ) where
 
@@ -40,9 +43,20 @@ dispatch :: Dispatcher a -> [Text] -> Maybe a
 dispatch (Dispatcher r) = case runIdentity $ runRegistry SafeRouter r of
   (_, f, _) -> fmap snd . listToMaybe . f ()
 
-(.*.) :: t -> HVect ts1 -> HVect (t ': ts1)
-(.*.) = HCons
-infixr 2 .*.
+renderPath :: Path l -> HVect l -> [Text]
+renderPath = renderRoute'
+
+params :: (HBuild' '[] r) => r
+params = hBuild' HNil
+
+class HBuild' l r where
+  hBuild' :: HVect l -> r
+
+instance (l' ~ ReverseLoop l '[]) => HBuild' l (HVect l') where
+  hBuild' l = hVectReverse l
+
+instance HBuild' (a ': l) r => HBuild' l (a -> r) where
+  hBuild' l x = hBuild' (HCons x l)
 
 data SafeRouter a = SafeRouter
 
