@@ -5,7 +5,7 @@ A type-safe request dispatcher and path renderer.  Based on [reroute](https://ha
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TypeOperators #-}
 
-import Webcrank.Dispath
+import Webcrank.Dispatch
 ```
 
 Given the following paths
