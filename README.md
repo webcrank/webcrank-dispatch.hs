@@ -6,9 +6,11 @@ A type-safe request dispatcher and path renderer.  Based on [reroute](https://ha
 {-# LANGUAGE TypeOperators #-}
 
 import Webcrank.Dispath
+```
 
--- Given the following paths
+Given the following paths
 
+```
 -- a path that doesn't have any path parameters
 index :: Path '[]
 index = ""
@@ -16,23 +18,30 @@ index = ""
 -- a path that has a path parameter that matches any string
 echo :: Path '[String]
 echo = "echo" </> param
+```
 
+We can render them using
 
--- We can render them using
-
+```
 renderedIndex = renderPath index params 
 -- [""]
 
 renderedEcho = renderPath echo $ params "Hello"
 -- ["echo", "Hello"]
+```
 
--- And we can use them to create a dispatcher for request routing
+And we can use them to create a dispatcher for request routing
+
+```
 dispatcher = dispatch $ mconcat
   [ index ==> "Welcome!"
   , echo ==> \a -> mconcat [ "*", a, "*" ]
   ]
+```
 
--- then dispatch on a request path
+then dispatch on a request path
+
+```
 res1 = dispatcher [""] 
 -- Just "Welcome!"
 
