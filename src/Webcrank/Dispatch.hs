@@ -14,7 +14,7 @@ module Webcrank.Dispatch
   , dispatch
   , (==>)
   , (</>)
-  , var
+  , param
   , renderPath
   , params
   , HVect(..)
@@ -26,6 +26,8 @@ import Data.HVect
 import Data.Maybe
 import Data.Monoid
 import Data.Text (Text)
+import Data.Typeable (Typeable)
+import Web.PathPieces
 import Web.Routing.AbstractRouter
 import Web.Routing.SafeRouting hiding (SafeRouter, SafeRouterReg, SafeRouterPath)
 
@@ -38,6 +40,9 @@ instance Monoid (Dispatcher a) where
 (==>) :: Path as -> HVectElim as a -> Dispatcher a
 (==>) p r = Dispatcher $ hookRoute () (SafeRouterPath p) (HVectElim' r)
 infixr 8 ==>
+
+param :: (Typeable a, PathPiece a) => Path (a ': '[])
+param = var
 
 dispatch :: Dispatcher a -> [Text] -> Maybe a
 dispatch (Dispatcher r) = case runIdentity $ runRegistry SafeRouter r of

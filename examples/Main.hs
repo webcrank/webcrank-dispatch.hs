@@ -1,5 +1,4 @@
 {-# LANGUAGE DataKinds #-}
-{-# LANGUAGE NoMonomorphismRestriction #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TypeOperators #-}
 
@@ -16,10 +15,10 @@ packages :: Path '[]
 packages = "packages"
 
 package :: Path '[Text]
-package = packages </> var
+package = packages </> param
 
 packageVer :: Path '[Text, Int]
-packageVer = package </> var
+packageVer = package </> param
 
 packageVerDoc :: Path '[Text, Int]
 packageVerDoc = packageVer </> "doc"

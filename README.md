@@ -1,3 +1,46 @@
-A type-safe request dispatcher and path creator.  Based on [reroute](https://hackage.haskell.org/package/reroute).
+A type-safe request dispatcher and path renderer.  Based on [reroute](https://hackage.haskell.org/package/reroute).
 
-See `examples/Examples.hs` for example usage.
+```
+{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TypeOperators #-}
+
+import Webcrank.Dispath
+
+-- Given the following paths
+
+-- a path that doesn't have any path parameters
+index :: Path '[]
+index = ""
+
+-- a path that has a path parameter that matches any string
+echo :: Path '[String]
+echo = "echo" </> param
+
+
+-- We can render them using
+
+renderedIndex = renderPath index params 
+-- [""]
+
+renderedEcho = renderPath echo $ params "Hello"
+-- ["echo", "Hello"]
+
+-- And we can use them to create a dispatcher for request routing
+dispatcher = dispatch $ mconcat
+  [ index ==> "Welcome!"
+  , echo ==> \a -> mconcat [ "*", a, "*" ]
+  ]
+
+-- then dispatch on a request path
+res1 = dispatcher [""] 
+-- Just "Welcome!"
+
+res2 = dispatcher ["echo", "Thanks for coming!"]
+-- Just "*Thanks for coming!*"
+
+notFound = dispatcher ["something", "else"]
+-- Nothing
+```
+
+For more examples see `examples/Main.hs`.
