@@ -14,6 +14,7 @@ module Webcrank.Dispatch
   , renderRoute
   , renderRoute'
   , (.*.)
+  , HVect(..)
   ) where
 
 import Control.Monad.Identity
