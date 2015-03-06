@@ -1,4 +1,4 @@
-[Travis](https://travis-ci.org/webcrank/webcrank-dispatch.hs) [![Build Status](https://travis-ci.org/webcrank/webcrank-dispatch.hs.png)](https://travis-ci.org/webcrank/webcrank-dispatch.hs)
+# Webcrank Dispatch [![TravisCI](https://travis-ci.org/webcrank/webcrank-dispatch.hs.svg)](https://travis-ci.org/webcrank/webcrank-dispatch.hs) [![Hackage](https://img.shields.io/hackage/v/webcrank-dispatch.svg?style=flat)](https://hackage.haskell.org/package/webcrank-dispatch)
 
 A type-safe request dispatcher and path renderer.
 
@@ -10,8 +10,8 @@ A type-safe request dispatcher and path renderer.
 import Webcrank.Dispatch
 ```
 
-# Paths
-## Building Paths
+## Paths
+### Building Paths
 
 The simplest `Path` is `root`, which is equivalent to `/`.
 
@@ -38,7 +38,7 @@ wat :: "this" </> param </> param </> "crazyness" </> param </> "ends" </> param
 
 Path parameters can be of any type that have instances for `Typeable` and `PathPiece`.
 
-## Rendering Paths
+### Rendering Paths
 
 `Path`s can be rendered using `renderPath` and
 `params`.
@@ -60,7 +60,7 @@ Path parameters can be of any type that have instances for `Typeable` and `PathP
 
 Note in the last example that no encoding is done by @renderPath@.
 
-# Dispatching
+## Dispatching
 
 An elementary `Dispatcher` can be built using `==>`.
 
