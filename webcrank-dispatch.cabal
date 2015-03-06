@@ -13,6 +13,17 @@ build-type: Simple
 cabal-version: >= 1.8
 description:        A simple request dispatcher.
 
+extra-source-files:
+  .ghci
+  .gitignore
+  .travis.yml
+  examples/LICENCE
+  examples/webcrank-dispatch-examples.cabal
+  examples/*.hs
+  HLint.hs
+  LICENSE
+  README.md
+
 source-repository   head
   type:             git
   location:         https://github.com/webcrank/webcrank-dispatch.hs.git
