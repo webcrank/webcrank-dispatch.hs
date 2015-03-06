@@ -1,7 +1,7 @@
 name: webcrank-dispatch
 version: 0.0.1
 license:            BSD3
-license-file:       LICENCE
+license-file:       LICENSE
 author:             Richard Wallace <rwallace@thewallacepack.net>
 maintainer:         Richard Wallace <rwallace@thewallacepack.net>
 copyright:          (c) 2015 Richard Wallace
@@ -17,7 +17,7 @@ extra-source-files:
   .ghci
   .gitignore
   .travis.yml
-  examples/LICENCE
+  examples/LICENSE
   examples/webcrank-dispatch-examples.cabal
   examples/*.hs
   HLint.hs

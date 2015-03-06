@@ -12,7 +12,7 @@
 -- |
 -- Module      :  Webcrank.Dispatch
 -- Copyright   :  (C) 2015 Richard Wallace
--- License     :  BSD-style (see the file LICENCE)
+-- License     :  BSD-style (see the file LICENSE)
 -- Maintainer  :  Richard Wallace <rwallace@thewallacepack.net>
 -- Stability   :  provisional
 -----------------------------------------------------------------------------
