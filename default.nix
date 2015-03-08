@@ -1,11 +1,14 @@
-{ mkDerivation, base, bytestring, doctest, QuickCheck, reroute
-, stdenv, text
+{ mkDerivation, base, bytestring, mtl, path-pieces, reroute, stdenv
+, text, unordered-containers
 }:
 mkDerivation {
   pname = "webcrank-dispatch";
-  version = "0.1";
+  version = "0.2";
   src = ./.;
-  buildDepends = [ base bytestring reroute text ];
-  testDepends = [ base doctest QuickCheck ];
-  license = stdenv.lib.licenses.unfree;
+  buildDepends = [
+    base bytestring mtl path-pieces reroute text unordered-containers
+  ];
+  homepage = "https://github.com/webcrank/webcrank-dispatch.hs";
+  description = "A simple request dispatcher";
+  license = stdenv.lib.licenses.bsd3;
 }
