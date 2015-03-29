@@ -1,4 +1,4 @@
-# Webcrank Dispatch [![TravisCI](https://travis-ci.org/webcrank/webcrank-dispatch.hs.svg)](https://travis-ci.org/webcrank/webcrank-dispatch.hs) [![Hackage](https://img.shields.io/hackage/v/webcrank-dispatch.svg?style=flat)](https://hackage.haskell.org/package/webcrank-dispatch)
+# Webcrank Dispatch [![TravisCI](https://travis-ci.org/webcrank/webcrank-dispatch.hs.svg)](https://travis-ci.org/webcrank/webcrank-dispatch.hs) [![Hackage](https://img.shields.io/hackage/v/webcrank-dispatch.svg?style=flat)](https://hackage.haskell.org/package/webcrank-dispatch) [![Dependencies](https://img.shields.io/hackage-deps/v/webcrank-dispatch.hs.svg?style=flat)](http://packdeps.haskellers.com/feed?needle=webcrank-dispatch.hs)
 
 A type-safe request dispatcher and path renderer.
 
