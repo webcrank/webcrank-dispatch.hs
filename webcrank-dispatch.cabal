@@ -36,7 +36,6 @@ library
   ghc-options:         -Wall
 
   build-depends:       base                >= 4.6 && < 5
-                     , bytestring          >= 0.10
                      , mtl                 >= 2.0
                      , path-pieces         >= 0.1
                      , reroute             >= 0.1
