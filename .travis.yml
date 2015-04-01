@@ -8,8 +8,7 @@ env:
 
 matrix:
   allow_failures:
-    # 7.10.1 fails due to reroutes dep on graph-core, 
-    # which has a base upper bound <4.8
+    # this should be fixed now, let's find out
     - env: GHCVER=7.10.1 
     - env: GHCVER=head
 
