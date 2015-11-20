@@ -36,7 +36,7 @@ module Webcrank.Dispatch
 
 import Control.Monad.Identity
 import qualified Data.HashMap.Strict as HM
-import Data.HVect
+import Data.HVect as HV
 import Data.Maybe
 import Data.Monoid
 import Data.Text (Text)
@@ -100,10 +100,10 @@ class HBuild' l r where
   hBuild' :: HVect l -> r
 
 instance (l' ~ ReverseLoop l '[]) => HBuild' l (HVect l') where
-  hBuild' l = hVectReverse l
+  hBuild' l = HV.reverse l
 
 instance HBuild' (a ': l) r => HBuild' l (a -> r) where
-  hBuild' l x = hBuild' (HCons x l)
+  hBuild' l x = hBuild' (x :&: l)
 
 -- | An elementary @'Dispatcher'@ can be built using @'==>'@.
 --
@@ -157,7 +157,7 @@ instance AbstractRouter (SafeRouter a) where
   rootPath = SafeRouterPath RR.Empty
   defRoute (SafeRouterPath path) action (SafeRouterReg (a, cAll)) =
     SafeRouterReg
-      ( RR.insertPathMap' path (hVectUncurry $ RR.flipHVectElim action) a
+      ( RR.insertPathMap' path (HV.uncurry $ RR.flipHVectElim action) a
       , cAll
       )
   fallbackRoute routeDef (SafeRouterReg (a, cAll)) =
@@ -165,8 +165,7 @@ instance AbstractRouter (SafeRouter a) where
   matchRoute (SafeRouterReg (a, cAll)) pathPieces =
     let matches = RR.match a pathPieces
         matches' =
-            if null matches
+            if Prelude.null matches
             then matches <> fmap (\f -> f pathPieces) cAll
             else matches
-    in zip (replicate (length matches') HM.empty) matches'
-
+    in zip (replicate (Prelude.length matches') HM.empty) matches'
