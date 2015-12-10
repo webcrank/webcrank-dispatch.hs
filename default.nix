@@ -1,14 +1,18 @@
-{ mkDerivation, base, bytestring, mtl, path-pieces, reroute, stdenv
-, text, unordered-containers
+{ nixpkgs ? import <nixpkgs> {}
+, compiler ? null
+, profiling ? false
 }:
-mkDerivation {
-  pname = "webcrank-dispatch";
-  version = "0.2";
-  src = ./.;
-  buildDepends = [
-    base bytestring mtl path-pieces reroute text unordered-containers
-  ];
-  homepage = "https://github.com/webcrank/webcrank-dispatch.hs";
-  description = "A simple request dispatcher";
-  license = stdenv.lib.licenses.bsd3;
-}
+
+let
+  hpkgs =
+    if compiler == null
+      then nixpkgs.pkgs.haskellPackages
+      else nixpkgs.pkgs.haskell.packages.${compiler};
+in
+  (hpkgs.override {
+    overrides = self: super: {
+      mkDerivation = args: super.mkDerivation (args // {
+        enableLibraryProfiling = profiling;
+      });
+    };
+  }).callPackage ./webcrank-dispatch.nix { }
